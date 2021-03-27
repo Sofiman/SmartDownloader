@@ -5,11 +5,10 @@ import com.github.sofiman.smartdownloader.utils.Streams;
 import com.github.sofiman.smartdownloader.utils.StringUtils;
 
 import java.io.*;
-import java.math.BigDecimal;
 import java.security.MessageDigest;
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class Downloader {
 
@@ -129,7 +128,7 @@ public class Downloader {
         System.out.print("Copying chunk files...");
         FileOutputStream out = new FileOutputStream(output);
         byte[] buf = new byte[2048];
-        AtomicInteger progress = new AtomicInteger(0);
+        AtomicLong progress = new AtomicLong(0);
 
         FileInputStream in;
         StringBuilder builder = new StringBuilder();

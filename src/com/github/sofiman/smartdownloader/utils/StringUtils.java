@@ -58,24 +58,21 @@ public class StringUtils {
         return String.format(base, b.toString(), p*100f);
     }
 
-    public static String units = "BKMGTPEZY";
+    public static String units = "BKMGTP";
+    private static Pattern inputPattern = Pattern.compile("[A-Za-z]");
 
     public static int indexOf(Pattern pattern, String s) {
         Matcher matcher = pattern.matcher(s);
         return matcher.find() ? matcher.start() : -1;
     }
 
-    public static long byteCount(String arg0) {
-        int index = indexOf(Pattern.compile("[A-Za-z]"), arg0);
-        double ret = Double.parseDouble(arg0.substring(0, index));
-        String unitString = arg0.substring(index);
-        int unitChar = unitString.charAt(0);
-        int power = units.indexOf(unitChar);
-        boolean isSi = unitString.indexOf('i')!=-1;
-        int factor = 1024;
-        if (isSi) {
-            factor = 1000;
-        }
+    public static long byteCount(String input) {
+        int matchIndex = indexOf(inputPattern, input);
+        double ret = Double.parseDouble(input.substring(0, matchIndex));
+        String unitString = input.substring(matchIndex);
+        int power = units.indexOf(unitString.charAt(0));
+        boolean isSi = unitString.indexOf('i') != -1;
+        int factor = isSi ? 1000 : 1024;
 
         return new Double(ret * Math.pow(factor, power)).longValue();
 

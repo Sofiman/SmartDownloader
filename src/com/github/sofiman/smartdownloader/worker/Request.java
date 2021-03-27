@@ -192,11 +192,11 @@ public class Request {
                 return null;
             }
             buf = new String(buffer, 0, len);
-            int idx = buf.indexOf("\r\n\r\n");
+            int idx = buf.indexOf("\r\n\r\n") + 4;
             if (idx > -1) {
-                head.append(buf, 0, idx + 4);
+                head.append(buf, 0, idx);
                 if(outputStream != null){
-                    outputStream.write(buffer, idx+4, bufferSize-(idx+4));
+                    outputStream.write(buffer, idx, bufferSize-(idx));
                 }
                 buf = null;
                 break;
